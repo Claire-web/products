@@ -3,7 +3,7 @@ products = []
 with open('products.csv', 'r') as f:
 	for line in f:
 		if '商品,價格' in line:
-			continue
+			continue #跳過'商品,價格'(因為這列不是一項商品資料)繼續下一迴
 		name, price = line.strip().split(',')
 		products.append([name, price])
 print(products)
