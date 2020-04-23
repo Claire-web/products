@@ -2,8 +2,8 @@
 import os #operating system
 
 #讀取檔案
-products = []
-if os.path.isfile('products.csv'): #檢查檔案在不在
+products = [] #後面所有執行程序都需要用到
+if os.path.isfile('products.csv'): #檢查檔案在不在'相對路徑'
 	print('有這個檔案')
 	with open('products.csv', 'r') as f: 
 		for line in f:
@@ -12,8 +12,6 @@ if os.path.isfile('products.csv'): #檢查檔案在不在
 			name, price = line.strip().split(',') #先拿掉換行,再用逗號切割(遇逗號就做切割)
 			products.append([name, price])
 	print(products)
-
-
 else:
 	print('找不到你要查詢的檔案')
 
