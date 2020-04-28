@@ -1,4 +1,3 @@
-
 import os #operating system
 
 #讀取檔案
@@ -15,7 +14,6 @@ if os.path.isfile('products.csv'): #檢查檔案在不在'相對路徑'
 else:
 	print('找不到你要查詢的檔案')
 
-
 #讓使用者輸入
 while True:
 	name = input('請輸入商品名稱:')
@@ -28,7 +26,6 @@ while True:
 #印出所有購買紀錄
 for p in products:
 	print(p[0], '的價格是', p[1])
-
 
 #寫入檔案
 with open('products.csv', 'w', encoding='utf-8') as f:
