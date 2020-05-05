@@ -1,34 +1,50 @@
+#讀取檔案
 import os #operating system
 
-#讀取檔案
-products = [] #後面所有執行程序都需要用到
-if os.path.isfile('products.csv'): #檢查檔案在不在'相對路徑'
-	print('有這個檔案')
-	with open('products.csv', 'r') as f: 
+def read_file(filename):
+	products = []
+	with open(filename, 'r') as f: 
 		for line in f:
 			if '商品,價格' in line:
-				continue #跳過'商品,價格'(因為這列不是一項商品資料)繼續下一迴
+				continue #讀取的時候跳過'商品,價格'(因為這列不是一項商品資料)繼續讀取下一迴
 			name, price = line.strip().split(',') #先拿掉換行,再用逗號切割(遇逗號就做切割)
 			products.append([name, price])
-	print(products)
-else:
-	print('找不到你要查詢的檔案')
+	return products
 
 #讓使用者輸入
-while True:
-	name = input('請輸入商品名稱:')
-	if name == 'q':
-		break
-	price = input('請輸入商品價格:')
-	price = int(price)
-	products.append([name, price])
+def user_input(products):
+	while True:
+		name = input('請輸入商品名稱:')
+		if name == 'q':
+			break
+		price = input('請輸入商品價格:')
+		price = int(price)
+		products.append([name, price])
+	print(products)
+	return(products)
 
 #印出所有購買紀錄
-for p in products:
-	print(p[0], '的價格是', p[1])
+def print_products(products):
+	for p in products:
+		print(p[0], '的價格是', p[1])
 
 #寫入檔案
-with open('products.csv', 'w', encoding='utf-8') as f:
-	f.write('商品,價格\n')
-	for p in products:
-		f.write(p[0] + ',' + str(p[1]) + '\n')
+def write_file(filename, products):
+	with open(filename, 'w', encoding='utf-8') as f:
+		f.write('商品,價格\n')
+		for p in products:
+			f.write(p[0] + ',' + str(p[1]) + '\n')
+
+def main():
+	filename = 'products.csv'
+	if os.path.isfile(filename): #檢查檔案在不在,只做一次不需要create一個function
+		print('有這個檔案')
+		products = read_file(filename)
+	else:
+		print('找不到你要查詢的檔案')
+		
+	products = user_input(products)
+	print_products(products)
+	write_file(filename, products)
+
+main()
